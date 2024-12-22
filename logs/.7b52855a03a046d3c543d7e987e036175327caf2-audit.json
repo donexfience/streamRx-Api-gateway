@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\All-services\\api-gateway\\logs\\.7b52855a03a046d3c543d7e987e036175327caf2-audit.json",
+    "files": [
+        {
+            "date": 1734526833351,
+            "name": "C:\\All-services\\api-gateway\\logs\\error-2024-12-18.log",
+            "hash": "9f1e766402762c0ee21e4130ddf51234b2d60525c2fd9ff703c174b89fd3d882"
+        },
+        {
+            "date": 1734546691934,
+            "name": "C:\\All-services\\api-gateway\\logs\\error-2024-12-19.log",
+            "hash": "085d7cae561c6ea68c77934baf693b6aa94f6cd625a8f9c5258a302ebeac9202"
+        }
+    ],
+    "hashType": "sha256"
+}

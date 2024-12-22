@@ -1,0 +1,121 @@
+2024-12-19 00:00:34 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:00:34 [info]: Proxying POST /graphql/graphql to AuthService 
+2024-12-19 00:00:34 [info]: POST /graphql/graphql - 404 {"status":404,"duration":"41ms"}
+2024-12-19 00:01:31 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:31 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:37 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:37 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:41 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:41 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:43 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:43 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:47 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:47 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:48 [info]: API Gateway running on port 3002 
+2024-12-19 00:01:48 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:01:55 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:01:55 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:02:15 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:02:15 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:02:20 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:02:20 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:02:26 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:02:26 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:02:31 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:02:31 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:03:35 [info]: API Gateway running on port 3002 
+2024-12-19 00:03:35 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:03:37 [info]: API Gateway running on port 3002 
+2024-12-19 00:03:37 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:03:37 [info]: API Gateway running on port 3002 
+2024-12-19 00:03:37 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:03:45 [info]: API Gateway running on port 3002 
+2024-12-19 00:03:45 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:21 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:21 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:27 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:27 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:31 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:31 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:34 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:34 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:39 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:39 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:41 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:41 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:43 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:43 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:04:50 [info]: API Gateway running on port 3002 
+2024-12-19 00:04:50 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:01 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:01 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:07 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:07 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:10 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:10 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:13 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:13 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:27 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:27 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:34 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:34 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:38 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:38 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:42 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:42 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:46 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:46 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:50 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:50 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:05:53 [info]: API Gateway running on port 3002 
+2024-12-19 00:05:53 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:06:04 [info]: API Gateway running on port 3002 
+2024-12-19 00:06:04 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:06:08 [info]: API Gateway running on port 3002 
+2024-12-19 00:06:08 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:06:25 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:06:25 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://localhost:8000","targetBasePath":"graphql","requestUrl":"/graphql"}
+2024-12-19 00:06:25 [info]: Rewritten Path: /graphql 
+2024-12-19 00:06:25 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:06:51 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:06:51 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://localhost:8000","targetBasePath":"graphql","requestUrl":"/graphql"}
+2024-12-19 00:06:51 [info]: Rewritten Path: /graphql 
+2024-12-19 00:06:51 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:08:25 [info]: API Gateway running on port 3002 
+2024-12-19 00:08:25 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:09:10 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:09:10 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://localhost:8000","targetBasePath":"graphql","requestUrl":"/graphql"}
+2024-12-19 00:09:10 [info]: Rewritten Path: /graphql 
+2024-12-19 00:09:10 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:10:01 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:10:01 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://localhost:8000","targetBasePath":"graphql","requestUrl":"/graphql"}
+2024-12-19 00:10:01 [info]: Rewritten Path: /graphql 
+2024-12-19 00:10:01 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:16:42 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:16:42 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://localhost:8000","targetBasePath":"graphql","requestUrl":"/graphql"}
+2024-12-19 00:16:42 [info]: Rewritten Path: /graphql 
+2024-12-19 00:16:42 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:17:31 [info]: API Gateway running on port 3002 
+2024-12-19 00:17:31 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:17:33 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:17:33 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://host.docker.internal:8000","targetBasePath":"","requestUrl":"/graphql"}
+2024-12-19 00:17:33 [info]: Rewritten Path: /graphql 
+2024-12-19 00:17:34 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:17:50 [info]: POST /auth/graphql {"method":"POST","path":"/auth/graphql","query":{}}
+2024-12-19 00:17:50 [info]: Proxy Path Rewrite Debug: {"originalPath":"/graphql","servicePath":"/auth","targetHost":"http://host.docker.internal:8000","targetBasePath":"","requestUrl":"/graphql"}
+2024-12-19 00:17:50 [info]: Rewritten Path: /graphql 
+2024-12-19 00:17:50 [info]: Proxying POST /graphql to AuthService 
+2024-12-19 00:17:55 [error]: Proxy error for AuthService: connect ETIMEDOUT 10.4.6.138:8000 {"service":"AuthService","url":"/graphql","method":"POST"}
+2024-12-19 00:18:11 [error]: Proxy error for AuthService: connect ETIMEDOUT 10.4.6.138:8000 {"service":"AuthService","url":"/graphql","method":"POST"}
+2024-12-19 00:18:27 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:27 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:18:30 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:30 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:18:34 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:34 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:18:35 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:35 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:18:37 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:37 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}
+2024-12-19 00:18:56 [info]: API Gateway running on port 3002 
+2024-12-19 00:18:56 [info]: Configured Services: {"services":[{"name":"UserService","path":"/users"},{"name":"AuthService","path":"/auth"}]}

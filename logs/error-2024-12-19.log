@@ -1,0 +1,2 @@
+2024-12-19 00:17:55 [error]: Proxy error for AuthService: connect ETIMEDOUT 10.4.6.138:8000 {"service":"AuthService","url":"/graphql","method":"POST"}
+2024-12-19 00:18:11 [error]: Proxy error for AuthService: connect ETIMEDOUT 10.4.6.138:8000 {"service":"AuthService","url":"/graphql","method":"POST"}
