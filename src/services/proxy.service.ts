@@ -1,4 +1,4 @@
-import { AuthMiddleware } from './../middleware/authMiddleware';
+import { AuthMiddleware } from "./../middleware/authMiddleware";
 import path from "path";
 import { Application } from "express";
 import { createProxyMiddleware, Options } from "http-proxy-middleware";
@@ -6,14 +6,14 @@ import { logger } from "../utils/logger";
 import { ServiceConfig } from "../config/service";
 import { createRateLimiter } from "../rateLimit/rateLimit.middleware";
 import url from "url";
-import { TokenManager } from '../utils/TokenManager';
+import { TokenManager } from "../utils/TokenManager";
+import express from "express";
 
 export class ProxyService {
   private app: Application;
   private services: ServiceConfig[];
   private tokenManager: TokenManager;
-  private authMiddleware : AuthMiddleware
-
+  private authMiddleware: AuthMiddleware;
 
   constructor(app: Application, services: ServiceConfig[]) {
     this.app = app;
@@ -26,7 +26,6 @@ export class ProxyService {
   }
 
   setupProxyRoutes() {
-    // Sort services by path length in descending order
     const sortedServices = [...this.services].sort(
       (a, b) => b.path.length - a.path.length
     );
@@ -35,7 +34,6 @@ export class ProxyService {
       const limiter = createRateLimiter();
       const parsedUrl = url.parse(service.url);
 
-      // Debug log for service configuration
       logger.debug("Configuring service:", {
         name: service.name,
         parsedUrl,
@@ -49,60 +47,34 @@ export class ProxyService {
         changeOrigin: true,
         secure: false,
 
-        // pathRewrite: (path, req) => {
-        //   // Check if this is the correct service for this path
-        //   if (!path.startsWith(service.path)) {
-        //     logger.debug("Path does not match service:", {
-        //       path,
-        //       servicePath: service.path,
-        //       serviceName: service.name,
-        //     });
-        //     return path;
-        //   }
-
-        //   let rewrittenPath = path.replace(new RegExp(`^${service.path}`), "");
-
-        //   // If we're dealing with the auth service and GraphQL
-        //   if (service.name === "AuthService" && parsedUrl.pathname) {
-        //     // Ensure we're using the parsed URL's pathname
-        //     rewrittenPath =
-        //       parsedUrl.pathname + (rewrittenPath === "/" ? "" : rewrittenPath);
-        //   }
-
-        //   // Clean up the path
-        //   rewrittenPath = `/${rewrittenPath
-        //     .replace(/^\/+/, "")
-        //     .replace(/\/+/g, "/")}`;
-
-        //   logger.debug("Path rewrite details:", {
-        //     originalPath: path,
-        //     rewrittenPath,
-        //     serviceName: service.name,
-        //     finalUrl: `${targetHost}${rewrittenPath}`,
-        //   });
-
-        //   return rewrittenPath;
-        // },
-
         on: {
           proxyReq: (proxyReq, req: any, res) => {
             const fullUrl = `${targetHost}${proxyReq.path}`;
-            logger.debug("Full proxy request details:", {
-              service: service.name,
-              method: req.method,
-              originalUrl: req.url,
-              proxyPath: proxyReq.path,
-              fullUrl,
-              headers: proxyReq.getHeaders(),
-              body: req.body,
-            });
+            
+            // Set headers for all requests
+            proxyReq.setHeader('Content-Type', 'application/json');
+            
+            if (req.body && Object.keys(req.body).length > 0) {
+              const bodyData = JSON.stringify(req.body);
+              // Set content length
+              proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+              // Write body data
+              proxyReq.write(bodyData);
+              
+              logger.debug("Full proxy request details:", {
+                service: service.name,
+                method: req.method,
+                originalUrl: req.url,
+                proxyPath: proxyReq.path,
+                fullUrl,
+                headers: proxyReq.getHeaders(),
+                body: req.body,
+              });
+            }
+
             fetch(fullUrl, { method: "OPTIONS" })
-              .then(() =>
-                logger.debug(`Connection test successful to ${fullUrl}`)
-              )
-              .catch((err) =>
-                logger.error(`Connection test failed to ${fullUrl}:`, err)
-              );
+              .then(() => logger.debug(`Connection test successful to ${fullUrl}`))
+              .catch((err) => logger.error(`Connection test failed to ${fullUrl}:`, err));
           },
 
           proxyRes: (proxyRes, req, res) => {
@@ -155,10 +127,16 @@ export class ProxyService {
         fullServiceUrl: service.url,
       });
 
-      this.app.use(routePaths, limiter,this.authMiddleware.authenticate, createProxyMiddleware(proxyOptions));
+      this.app.use(
+        routePaths,
+        express.json(),
+        express.urlencoded({ extended: true }),
+        this.authMiddleware.authenticate,
+        limiter,
+        createProxyMiddleware(proxyOptions)
+      );
     });
 
-    // Add a catch-all route to log unmatched requests
     this.app.use("*", (req, res, next) => {
       logger.warn("Unmatched route:", {
         method: req.method,

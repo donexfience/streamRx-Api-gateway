@@ -11,7 +11,22 @@ declare global {
 }
 
 export class AuthMiddleware {
-  private tokenManager: TokenManager;
+  private readonly tokenManager: TokenManager;
+  private readonly COMMON_COOKIE_OPTIONS = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    path: "/",
+    domain:
+      process.env.NODE_ENV === "production" ? ".yourdomain.com" : undefined,
+  };
+
+  private readonly COOKIE_OPTIONS2 = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict" as const,
+    maxAge: 2 * 60,
+  };
 
   constructor(tokenManager: TokenManager) {
     this.tokenManager = tokenManager;
@@ -23,102 +38,110 @@ export class AuthMiddleware {
     next: NextFunction
   ): Promise<void> => {
     try {
-      console.log(req.headers["refresh-token"]);
+      const accessToken = req.headers["accesstoken"]?.toString() || null;
+      const refreshToken = req.headers["refreshtoken"]?.toString() || null;
 
-      const accessToken = req.headers["authorization"] || null;
-      const refreshToken = req.headers["refresh-token"] || null;
-      if (accessToken && accessToken.startsWith("Bearer ")) {
-        const token = accessToken.split(" ")[1];
-        console.log("Access Token:", token);
-      } else {
-        console.log("No Access Token Found");
-      }
-
-      console.log("Access Token:", accessToken);
-      console.log("Refresh Token:", refreshToken);
-
-      // If no tokens at all, send authentication required
       if (!accessToken && !refreshToken) {
-        res.status(401).json({
-          success: false,
-          message: "Authentication required",
-        });
+        this.handleAuthenticationError(res, 401, "Authentication required");
         return;
       }
 
-      // First try to verify access token if it exists
-      let isAccessTokenValid = false;
-      if (accessToken) {
-        const stringAccess = accessToken.toString();
-        try {
-          const decodedAccess =
-            this.tokenManager.verifyAccessToken(stringAccess);
-          if (decodedAccess) {
-            req.user = decodedAccess;
-            isAccessTokenValid = true;
-            next();
-            return;
-          }
-        } catch (error) {
-          console.log("Access token verification failed, trying refresh token");
-          // Continue to refresh token logic
-        }
+      if (accessToken && (await this.validateAccessToken(accessToken, req))) {
+        next();
+        return;
       }
 
-      // If access token is invalid or missing, try refresh token
-      if (refreshToken) {
-        try {
-          const stringrefresh = refreshToken.toString();
-          console.log("Verifying refresh token");
-          const decodedRefresh =
-            this.tokenManager.verifyRefreshToken(stringrefresh);
-
-          if (decodedRefresh) {
-            console.log("Refresh token valid, generating new tokens");
-            const tokenPayload: TokenPayload = {
-              userId: decodedRefresh.userId,
-              role: decodedRefresh.role,
-              email: decodedRefresh.email,
-            };
-
-            // Generate new tokens
-            const newAccessToken =
-              this.tokenManager.generateAccessToken(tokenPayload);
-            const newRefreshToken =
-              this.tokenManager.generateRefreshToken(tokenPayload);
-            console.log(newAccessToken, newRefreshToken, "puthiya sanam");
-
-            res.setHeader("Authorization", `Bearer ${newAccessToken}`);
-            res.setHeader("Refresh-Token", newRefreshToken);
-            next();
-            return;
-          }
-        } catch (error) {
-          console.log("Refresh token verification failed:", error);
-          // Clear cookies if refresh token is invalid
-          res.clearCookie("accessToken");
-          res.clearCookie("refreshToken");
-
-          res.status(401).json({
-            success: false,
-            message: "Invalid refresh token",
-          });
-          return;
-        }
+      if (
+        refreshToken &&
+        (await this.handleTokenRefresh(refreshToken, req, res))
+      ) {
+        next();
+        return;
       }
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
 
-      res.status(401).json({
-        success: false,
-        message: "Authentication failed",
-      });
+      this.clearAuthCookies(res);
+      this.handleAuthenticationError(res, 401, "Authentication failed");
     } catch (error) {
       console.error("Auth middleware error:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error",
-      });
+      this.handleAuthenticationError(res, 500, "Internal server error");
     }
   };
+
+  private async validateAccessToken(
+    token: string,
+    req: Request
+  ): Promise<boolean> {
+    try {
+      const decoded = this.tokenManager.verifyAccessToken(token);
+      if (decoded) {
+        req.user = decoded;
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+  private async handleTokenRefresh(
+    refreshToken: string,
+    req: Request,
+    res: Response
+  ): Promise<boolean> {
+    try {
+      const decoded = this.tokenManager.verifyRefreshToken(refreshToken);
+      if (!decoded) return false;
+
+      const tokenPayload: TokenPayload = {
+        userId: decoded.userId,
+        role: decoded.role,
+        email: decoded.email,
+      };
+
+      const newAccessToken =
+        this.tokenManager.generateAccessToken(tokenPayload);
+      const newRefreshToken =
+        this.tokenManager.generateRefreshToken(tokenPayload);
+
+      res.cookie("accessToken", newAccessToken, {
+        ...this.COMMON_COOKIE_OPTIONS,
+        maxAge: 2 * 60 * 1000,
+      });
+
+      res.cookie("refreshToken", newRefreshToken, {
+        ...this.COMMON_COOKIE_OPTIONS,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
+      res.setHeader("accessToken", newAccessToken);
+      res.setHeader("refreshToken", newRefreshToken);
+
+      res.locals.tokens = {
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      };
+
+      req.user = tokenPayload;
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private clearAuthCookies(res: Response): void {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+  }
+
+  private handleAuthenticationError(
+    res: Response,
+    status: number,
+    message: string
+  ): void {
+    this.clearAuthCookies(res);
+    res.status(status).json({
+      success: false,
+      message,
+    });
+  }
 }

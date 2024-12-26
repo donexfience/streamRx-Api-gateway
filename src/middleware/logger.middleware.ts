@@ -1,10 +1,9 @@
-
-import { Request, Response, NextFunction } from 'express';
-import { logger } from '../utils/logger';
+import { Request, Response, NextFunction } from "express";
+import { logger } from "../utils/logger";
 
 export const loggerMiddleware = (
-  req: Request, 
-  res: Response, 
+  req: Request,
+  res: Response,
   next: NextFunction
 ) => {
   const start = Date.now();
@@ -13,14 +12,14 @@ export const loggerMiddleware = (
     method: req.method,
     path: req.path,
     body: req.body,
-    query: req.query
+    query: req.query,
   });
 
-  res.on('finish', () => {
+  res.on("finish", () => {
     const duration = Date.now() - start;
-    logger.info(`${req.method} ${req.url} - ${res.statusCode}`, {
+    logger.info(`${req.method} ${req.url} - ${res.statusCode} = ${req.body}`, {
       status: res.statusCode,
-      duration: `${duration}ms`
+      duration: `${duration}ms`,
     });
   });
 
