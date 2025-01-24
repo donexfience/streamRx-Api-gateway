@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { TokenPayload, TokenResponse } from "../types/auth.types";
 import { TokenManager } from "../utils/TokenManager";
+import axios from "axios";
 
 declare global {
   namespace Express {
@@ -40,25 +41,45 @@ export class AuthMiddleware {
     try {
       const accessToken = req.headers["accesstoken"]?.toString() || null;
       const refreshToken = req.headers["refreshtoken"]?.toString() || null;
-
       if (!accessToken && !refreshToken) {
         this.handleAuthenticationError(res, 401, "Authentication required");
         return;
       }
 
       if (accessToken && (await this.validateAccessToken(accessToken, req))) {
+        let isBlocked;
+        const decoded = await this.tokenManager.verifyAccessToken(accessToken);
+        if (decoded?.email) {
+          req.user = decoded;
+          isBlocked = await this.callGraphQL(decoded?.email);
+        }
+
+        if (isBlocked) {
+          this.handleAuthenticationError(res, 403, "User is blocked");
+          return;
+        }
         next();
         return;
       }
-
       if (
         refreshToken &&
         (await this.handleTokenRefresh(refreshToken, req, res))
       ) {
+        let isBlocked;
+        const decoded = await this.tokenManager.verifyRefreshToken(
+          refreshToken
+        );
+        if (decoded?.email) {
+          req.user = decoded;
+          isBlocked = await this.callGraphQL(decoded?.email);
+        }
+        if (isBlocked) {
+          this.handleAuthenticationError(res, 403, "User is blocked");
+          return;
+        }
         next();
         return;
       }
-
       this.clearAuthCookies(res);
       this.handleAuthenticationError(res, 401, "Authentication failed");
     } catch (error) {
@@ -131,6 +152,45 @@ export class AuthMiddleware {
   private clearAuthCookies(res: Response): void {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
+  }
+
+  private async callGraphQL(id: string): Promise<boolean> {
+    const graphqlUrl = "http://auth_service:8000/graphql";
+    const query = `
+    query {
+      getUserByEmail(input: { email: "${id}" }) {
+        id
+        email
+        username
+        bio
+        role
+        isActive
+      }
+    }
+  `;
+
+    try {
+      const response = await axios.post(
+        graphqlUrl,
+        { query },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response, "response in api gateway");
+      const user = response.data.data.getUserByEmail;
+      console.log(user, "user checking blocked or unblocked");
+      if (user.isActive) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error calling GraphQL:", error);
+      return false;
+    }
   }
 
   private handleAuthenticationError(
