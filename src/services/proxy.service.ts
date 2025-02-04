@@ -131,7 +131,7 @@ export class ProxyService {
         routePaths,
         express.json(),
         express.urlencoded({ extended: true }),
-        this.authMiddleware.authenticate,
+        // this.authMiddleware.authenticate,
         limiter,
         createProxyMiddleware(proxyOptions)
       );

@@ -33,4 +33,11 @@ export const SERVICES: ServiceConfig[] = [
     path: "/recommendation",
     timeout: 5000,
   },
+
+  {
+    name: "RecommendationService",
+    url: process.env.COMMUNITY_SERVICE_URL || "http://community-service:3009",
+    path: "/community",
+    timeout: 5000,
+  },
 ];

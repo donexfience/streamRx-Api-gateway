@@ -48,7 +48,7 @@ class ApiGateway {
       res.header("Access-Control-Allow-Origin", "http://localhost:3001");
       res.header(
         "Access-Control-Allow-Methods",
-        "GET,POST,PUT,DELETE,OPTIONS,HEAD"
+        "GET,POST,PUT,DELETE,OPTIONS,HEAD,PATCH"
       );
       res.header("Access-Control-Allow-Headers", CORS_HEADERS.join(", "));
       res.header("Access-Control-Allow-Credentials", "true");
@@ -59,7 +59,7 @@ class ApiGateway {
     this.app.use(
       cors({
         origin: "http://localhost:3001",
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD","PATCH"],
         allowedHeaders: CORS_HEADERS,
         exposedHeaders: EXPOSED_HEADERS, 
         credentials: true,
